@@ -1,20 +1,16 @@
 import feedparser
-from html.parser import HTMLParser
+from bs4 import BeautifulSoup
 
-class HTMLFilter(HTMLParser):
-        text = ""
-        def handle_data(self, data):
-                self.text += data
-
-def Steam():
+def LatestSteamPost():
         steamRSSUrl = "https://store.steampowered.com/feeds/news/app/1282270/"
 
         rssParsed = feedparser.parse(steamRSSUrl)
 
-        latestPostTitle = rssParsed['entries'][0]['title']
+        descHTML = (rssParsed['entries'][0]['summary']).replace('<br />', '\n')
+        parser = BeautifulSoup(descHTML, features="html.parser")
 
-        latestPostDescHTML = HTMLFilter()
-        latestPostDescHTML.feed(rssParsed['entries'][0]['summary'])
-        latestPostDesc = latestPostDescHTML.text
-
-        return latestPostTitle + "\n\n" + latestPostDesc
+        return { 
+                "title": rssParsed['entries'][0]['title'], 
+                "description": parser.get_text(),
+                "time": ""
+        }
