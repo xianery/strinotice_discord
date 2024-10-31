@@ -163,3 +163,4 @@ cython_debug/
 
 # Bot config file
 config.json
+servers.json
