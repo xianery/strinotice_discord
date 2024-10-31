@@ -3,9 +3,11 @@
 2. `cd strinotice_discord-main`
 3. `pip install -r requirements.txt`
 4. `python main.py`
+5. Insert bot token into JSON where contains bot settings
 
-# JSON files format
-#### JSON file what contain server's feed channel
+# JSON files templates
+JSON files contains near with `main.py`
+#### JSON file what contain server's feed channel (Default: `servers.json`)
 ```json
 {
     "<server_id>": {
@@ -13,7 +15,7 @@
     }
 }
 ```
-#### JSON file what contain bot settings
+#### JSON file what contain bot settings (Default: `config.json`)
 ```json
 {
     "token": "<bot_token>",     // Bot token
