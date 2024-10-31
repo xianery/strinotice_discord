@@ -7,7 +7,7 @@ def createConfig(filename):
                         "prefix": "/"
                 }
 
-                temp = json.dumps(cfg, indent=4)
+                temp = json.dumps(cfg, indent = 4)
                 file.write(temp)
 
 def readConfig(filename):
