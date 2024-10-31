@@ -3,7 +3,7 @@ import sys
 import discord
 from discord.ext import commands
 from discord import app_commands
-from sources.strinova_steam_rss import *
+from functions.strinova_steam_rss import *
 from functions.config import *
 
 # Please, edit if necessary
@@ -15,23 +15,25 @@ else:
     createConfig(cfgFile)
     sys.exit(f"Please edit {cfgFile}")
 
-intents = discord.Intents.all()
-bot = commands.Bot(command_prefix = config['prefix'], intents = intents)
-
-class MyClient(discord.Client):
+class CoreSetup(commands.Bot):
     def __init__(self):
-        super().__init__(intents=intents)
-        self.tree = app_commands.CommandTree(self)
+        super().__init__(command_prefix = config['prefix'], intents = discord.Intents.all())
 
     async def setup_hook(self):
-        await self.tree.sync()
+        # Registering commands
+        self.tree.add_command(latestpost)
+        await self.tree.sync() 
 
-client = MyClient()
+core = CoreSetup()
 
-@client.tree.command(name="latestpost", description="Get the latest post from Strinova RSS newsfeed in Steam")
-async def getbadge(interaction: discord.Interaction):
+@app_commands.command(name = "latestpost", description = "Get the latest post from Strinova RSS newsfeed in Steam")
+async def latestpost(interaction: discord.Interaction):
     post = LatestSteamPost()
     embedMsg = discord.Embed(title = post['title'], description = post['description'], color = 0x00ff00)
     await interaction.response.send_message(ephemeral = True, embed = embedMsg)
 
-client.run(config['token'])
+# @app_commands.command(name = "feedchannel", description = "")
+# async def selectFeedChannel():
+#     pass
+
+core.run(config['token'])
