@@ -45,8 +45,6 @@ async def publishNewsPost():
         print(readConfig(cfgFile)["latest_post_date"] + " | " + post["date"])
         
         if readConfig(cfgFile)["latest_post_date"] != post["date"]:
-                updatePostDate(cfgFile, post["date"])
-
                 for server in serversData:
                         guild = core.get_guild(int(server))
 
@@ -54,6 +52,7 @@ async def publishNewsPost():
                                 channel = guild.get_channel(serversData[server]["selected_channel"])
 
                                 if channel:
+                                        updatePostDate(cfgFile, post["date"])
                                         await channel.send(embed = embedMsg)
 
 @app_commands.command(name = "latestpost", description = "Get the latest post from Strinova RSS newsfeed in Steam")
