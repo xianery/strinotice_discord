@@ -13,8 +13,8 @@ def loadServersInfo(filename):
 
 def addServer(filename, serverID, channelID):
         temp = {
-                f"{serverID}": {
-                        "selected_channel": f"{channelID}"
+                serverID: {
+                        "selected_channel": channelID
                 }
         }
 
@@ -28,8 +28,8 @@ def addServer(filename, serverID, channelID):
 
 def changeChannel(filename, serverID, channelID):
         temp = {
-                f"{serverID}": {
-                        "selected_channel": f"{channelID}"
+                serverID: {
+                        "selected_channel": channelID
                 }
         }
 

@@ -1,14 +1,28 @@
 import json
 
 def createConfig(filename):
+        data = {
+                "token": "<insert token here>", 
+                "prefix": "/",
+                "latest_post_date": ""
+        }
+        
         with open(filename, "w") as file:
-                cfg = {
-                        "token": "<insert token here>", 
-                        "prefix": "/"
-                }
+                json.dump(data, file, indent = 4)
 
-                temp = json.dumps(cfg, indent = 4)
-                file.write(temp)
+def updatePostDate(filename, date):
+        temp = {
+                "latest_post_date": date
+        }
+
+        with open(filename, "r") as file:
+                data = json.load(file)
+
+        data.pop("latest_post_date", None)
+        data.update(temp)
+
+        with open(filename, "w") as file:
+                json.dump(data, file, indent = 4)
 
 def readConfig(filename):
         with open(filename, "r") as file:
