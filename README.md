@@ -1,6 +1,6 @@
 # Installation
 1. `git clone https://github.com/xianery/strinotice_discord.git`
-2. `cd strinotice_discord-main`
+2. `cd strinotice_discord`
 3. `pip install -r requirements.txt`
 4. `python main.py`
 5. Insert bot token into JSON where contains bot settings
